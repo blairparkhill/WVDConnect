@@ -102,6 +102,14 @@ if (-not (Test-Path "C:\Program Files\Google\Chrome\Application\chrome.exe"))
 	#Start-Process .\installer.exe /S -NoNewWindow -Wait -PassThru
 }
 
+# Run the MSFT VDI optimizer
+if (-not (Test-Path "C:\VDIOptimizer"))
+{
+    Invoke-WebRequest -OutFile "C:\VDIOptimizer.zip" -Uri "https://github.com/blairparkhill/WVDConnect/raw/master/Virtual-Desktop-Optimization-Tool-master.zip"
+	Expand-Archive -Path "C:\VDIOptimizer.zip" -DestinationPath "C:\VDIOptimizer\"
+	Start-Process -FilePath C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe '-ExecutionPolicy RemoteSigned -File "C:\VDIOptimizer\Virtual-Desktop-Optimization-Tool-master\Win10_VirtualDesktop_Optimize.ps1" -WindowsVersion 2004 -Verbose' -Wait
+}
+
 #Use this code to reboot the launcher after launcher bits are installed
 #If (-not (Test-Path "C:\Program Files\Login VSI\Login PI 3 Launcher\LoginPI.Launcher.exe"))
 #{
