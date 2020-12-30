@@ -1,7 +1,7 @@
 ﻿$uname = "blair"
 $domainWINS = "WORKGROUP"
 $pw = "LoginVSIlab!1"
-$DNSServer = "10.0.0.4"
+#$DNSServer = "10.0.0.4"
 
 #The following isn't used unless downloading launcher install from virtual appliance
 #$applianceUrl = "https://bpleva01.eastus2.cloudapp.azure.com"
@@ -12,7 +12,8 @@ $DNSServer = "10.0.0.4"
 #$LocalAdminCred = New-Object pscredential("blair",(ConvertTo-SecureString -AsPlainText -Force -String "Password!123"))
 #$DomainAdminCred = New-Object pscredential("scaletest\loginvsi",(ConvertTo-SecureString -AsPlainText -Force -String "LoginVSIlab!1"))
 
-Set-DnsClientServerAddress -InterfaceAlias Ethernet -ServerAddresses $DNSServer
+#the following line was breaking my config DNS resolution
+#Set-DnsClientServerAddress -InterfaceAlias Ethernet -ServerAddresses $DNSServer
 
 #The following is for domain joined launchers
 #If ((Get-WmiObject Win32_ComputerSystem).Domain -ne $Domain)
@@ -96,7 +97,7 @@ if (-not (Test-Path "C:\Program Files\Login VSI\Login PI 3 Launcher\WVD Connecto
 if (-not (Test-Path "C:\Program Files\Google\Chrome\Application\chrome.exe"))
 {
     Invoke-WebRequest -OutFile "C:\ChromeSetup.exe" -Uri "https://github.com/blairparkhill/WVDConnect/raw/master/ChromeSetup.exe"
-	Start-Process -FilePath "C:\ChromeSetup.exe" -Verb runAs -ArgumentList '/silent','/install'
+	Start-Process -FilePath "C:\ChromeSetup.exe" -Verb runAs -ArgumentList '/silent','/install' -Wait
 	#Other ways to start and exe install
 	#Start-Process "c:\temp\UpdateVisualC++\vcredist_x86.exe" -ArgumentList "/q" -Wait
 	#Start-Process .\installer.exe /S -NoNewWindow -Wait -PassThru
