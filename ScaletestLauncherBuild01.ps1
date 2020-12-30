@@ -66,12 +66,13 @@ if (-not (Test-Path "C:\launcher_win10_x64"))
 }
 
 # Check if launcher is installed, if not install it
+# This may need to eventually change to a powershell install with -Wait
 If (-not (Test-Path "C:\Program Files\Login VSI\Login PI 3 Launcher\LoginPI.Launcher.exe"))
 {
     cmd /c msiexec /i "C:\launcher_win10_x64\setup.msi" /qn /liewa "C:\launcher_win10_x64\install.log"        
 }
 
-# Check if launcher is installed, if it is set it to autorun
+# Check if launcher is already autorunning, if it isn't set it to autorun
 If ($null -eq (Get-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run -Name "PILauncher" -ea silent))
 {
     Set-ItemProperty -Path HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Run -Name "PILauncher" -Value "C:\Program Files\Login VSI\Login PI 3 Launcher\Console\LoginPI.Launcher.Console.exe" -Force
