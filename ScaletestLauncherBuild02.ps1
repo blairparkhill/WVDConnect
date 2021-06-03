@@ -59,17 +59,17 @@ public static class SSLValidator {
 #}
 
 # Check if launcher install bits exist, if not copy them from github
-if (-not (Test-Path "C:\launcher_win10_x64"))
+if (-not (Test-Path "C:\bpleva02_launcher_install4511"))
 {
-    Invoke-WebRequest -OutFile "C:\launcher_win10_x64.zip" -Uri "https://github.com/blairparkhill/WVDConnect/raw/master/launcher_win10_x64.zip"
-    Expand-Archive -Path "C:\launcher_win10_x64.zip" -DestinationPath "C:\launcher_win10_x64"
+    Invoke-WebRequest -OutFile "C:\bpleva02_launcher_install4511.zip" -Uri "https://github.com/blairparkhill/WVDConnect/raw/master/bpleva02_launcher_install4511.zip"
+    Expand-Archive -Path "C:\bpleva02_launcher_install4511.zip" -DestinationPath "C:\bpleva02_launcher_install4511"
 }
 
 # Check if launcher is installed, if not install it
 # This may need to eventually change to a powershell install with -Wait
 If (-not (Test-Path "C:\Program Files\Login VSI\Login PI 3 Launcher\LoginPI.Launcher.exe"))
 {
-    cmd /c msiexec /i "C:\launcher_win10_x64\setup.msi" /qn /liewa "C:\launcher_win10_x64\install.log"        
+    cmd /c msiexec /i "C:\bpleva02_launcher_install4511\setup.msi" /qn /liewa "C:\bpleva02_launcher_install4511\install.log"        
 }
 
 # Check if launcher is already autorunning, if it isn't set it to autorun
