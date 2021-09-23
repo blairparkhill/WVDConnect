@@ -13,7 +13,7 @@ $cred = New-Object PSCredential("blair", (ConvertTo-SecureString -AsPlainText -F
 
 # tell the script how many launchers you want
  $launchers = @()
- for ($i = 1; $i -le 4; $i++) {
+ for ($i = 10; $i -le 11; $i++) {
      $launchers += "BP-Launch{0:D3}" -f $i
  }
 
