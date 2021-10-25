@@ -1,5 +1,5 @@
 $resourcegroup = "bp-scaletest"
-$ImageName = "MicrosoftWindowsDesktop:Windows-10:20h1-pro:19041.1110.2107101719"
+$ImageName = "MicrosoftWindowsDesktop:Windows-10:20h1-pro:19041.1288.2110060448"
 #$MachineSize = "Standard_D8ds_v4"
 $MachineSize = "Standard_D8as_v4"
 $Location = "eastus2"
