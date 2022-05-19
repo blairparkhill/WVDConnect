@@ -8,26 +8,6 @@ $launcherMSIPath = "C:\bpleva01_launcher_install484\setup.msi"
 $launcherInstallLogPath = "C:\bpleva01_launcher_install484\install.log"
 
 
-#$DNSServer = "10.0.0.4"
-
-#The following isn't used unless downloading launcher install from virtual appliance
-#$applianceUrl = "https://bpleva01.eastus2.cloudapp.azure.com"
-
-#The following variables are not used unless allowing the machine to domain join
-#$Domain = "bp-scaletest.vsi"
-#$OUPath = "OU=Launchers,OU=bp-scaletest,DC=scaletest,dc=vsi"
-#$LocalAdminCred = New-Object pscredential("blair",(ConvertTo-SecureString -AsPlainText -Force -String "Password!123"))
-#$DomainAdminCred = New-Object pscredential("scaletest\loginvsi",(ConvertTo-SecureString -AsPlainText -Force -String "LoginVSIlab!1"))
-
-#the following line was breaking my config DNS resolution
-#Set-DnsClientServerAddress -InterfaceAlias Ethernet -ServerAddresses $DNSServer
-
-#The following is for domain joined launchers
-#If ((Get-WmiObject Win32_ComputerSystem).Domain -ne $Domain)
-#{
-#    Add-Computer -LocalCredential $LocalAdminCred -Credential $DomainAdminCred -DomainName $Domain -OUPath $OUPath
-#}
-
 
 if (-not("SSLValidator" -as [type])) {
     add-type -TypeDefinition @"
@@ -50,20 +30,6 @@ public static class SSLValidator {
 }
 [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.SecurityProtocolType]::Ssl3 -bor [System.Net.SecurityProtocolType]::Tls -bor [System.Net.SecurityProtocolType]::Tls11 -bor [System.Net.SecurityProtocolType]::Tls12
 [System.Net.ServicePointManager]::ServerCertificateValidationCallback = [SSLValidator]::GetDelegate()
-
-#The following is for downloading the launcher install from the Login Enterprise Virtual Appliance 
-#$Body = @{"grant_type"="client_credentials";"scope"="microservice";"client_id"="Engine";"client_secret"="6ZY59S36VICWA7FQNYDKOEC004VHAHT0PB5C2CP3"}
-#$Req = Invoke-RestMethod -uri "$applianceUrl/identityServer/connect/token" -Body $Body -Headers @{"Content-Type"="application/x-www-form-urlencoded";"Authorization"="Token"} -Method Post	
-#$Headers = @{"Authorization"="Bearer $($Req.access_token)";"Content-Type"="application/json"}
-
-# Check if launcher install bits exist, if not copy them from the virtual appliance
-#if (-not (Test-Path "C:\launcher_win10_x64"))
-#{
-#    Invoke-WebRequest -OutFile "C:\launcher_win10_x64.zip" -Uri "https://github.com/blairparkhill/WVDConnect/raw/master/launcher_win10_x64.zip"
-#    Expand-Archive -Path "C:\launcher_win10_x64.zip" -DestinationPath "C:\launcher_win10_x64"
-	#Start-Process -FilePath "C:\folder\setup.exe" -Verb runAs -ArgumentList '/s','/v"/qn"'
-	#Start-Process .\installer.exe /S -NoNewWindow -Wait -PassThru
-#}
 
 # Check if launcher install bits exist, if not copy them from github
 if (-not (Test-Path $launcherZipPath))
